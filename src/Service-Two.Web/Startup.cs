@@ -25,6 +25,16 @@ namespace Service_Two.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Service_Two.Web", Version = "v1" });
             });
+
+            services.AddCors(opt =>
+            {
+                opt.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
+                    builder.AllowAnyOrigin();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +46,8 @@ namespace Service_Two.Web
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Service_Two.Web v1"));
             }
+
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
